@@ -1,0 +1,13 @@
+.login-container{
+    background-color: aliceblue;
+    /* border: 1px solid red; */
+    border-radius: 15px;
+    max-height: 450px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+
+}

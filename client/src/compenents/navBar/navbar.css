@@ -1,0 +1,30 @@
+
+.nav-bar{
+    /* color: black !important; */
+    font-weight: bold ;
+    font-size: 1.5em;
+    height: 75px;
+    background-color: #F6AE2D !important;
+    
+}
+.nav-list:hover{
+    /* background-color:  rgb(10, 155, 252)  !important; */
+    transition-delay: 0.5s;
+    color: rgb(70, 65, 65) !important;
+}
+
+.nav-list{
+    color: black !important;
+}
+
+.search-input{
+    border: none;
+    border-radius: 30px;
+    width: 420px;
+    margin-left: 10px;
+}
+
+.search-input:focus{
+    outline: none;
+  
+}

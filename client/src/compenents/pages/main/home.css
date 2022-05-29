@@ -1,0 +1,25 @@
+*{
+    margin: 0 ;
+}
+
+.banner{
+    width: 100vw;
+    height: 500px;
+    display:block;
+    margin-top: 15px;
+
+}
+.articles-container{
+    width: 98.7vw;
+    min-height: 400px ;
+    /* margin: 5px 0 5px auto; */
+   
+    /* background-color: aqua; */
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    /* justify-content: space-between  ; */
+}
+
+
+
