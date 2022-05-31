@@ -28,10 +28,10 @@ function Login() {
         password: userpassword,
       }).then((response)=>{
         if(response.data.status === 2){
-         
+          // console.log("login succes")
           ReactSession.set('token',response.data.token)
           
-          // console.log('token = ' +ReactSession.get("token"))
+          console.log('token = ' +ReactSession.get("token"))
            navigate('/')
           
         }

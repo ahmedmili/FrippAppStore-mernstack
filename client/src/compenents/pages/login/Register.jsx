@@ -20,6 +20,9 @@ function Register() {
     const [LastName, setLastName] = useState('');
     const [userpassword,setPassword] = useState('');
     const [userMail,setUserMail] = useState('');
+    const [userPhone,setUserPhone] = useState('');
+    const [userCity,setUserCity] = useState('');
+    const [userPhoto,setUserPhoto] = useState('');
 
     const [errorNameMessage, setErrorNameMessage] = useState('');
     const [errorMailMessage, setErrorMailMessage] = useState(' We\'ll never share your email with anyone else.');
@@ -29,10 +32,12 @@ function Register() {
     const addUsers = () => {
       // if (validerString(FirstName)&&(ValidateEmail())){
         Axios.post("http://localhost:8000/api/add", {
-        Fname: FirstName,
-        Lname: LastName,
+        first_name: FirstName,
+        last_name: LastName,
         password: userpassword,
-        email:userMail
+        phone_num:userPhone,
+        adress:userCity,  
+        email:userMail,
       })
       .then((response)=>{
         // console.log(Response.status)
@@ -94,7 +99,7 @@ function Register() {
         </Col>
         <Col>
         <Form >
-  <Form.Group className="mb-3" controlId="formGirstName">
+  <Form.Group className="mb-3" controlId="formFirstName">
     <Form.Label>user name</Form.Label>
     <Form.Control type="text" placeholder="Enter votre nom" onChange={(e) =>setFirstName(e.target.value)} />
     <Form.Text className="text-muted nameMessageText">
@@ -102,7 +107,7 @@ function Register() {
     </Form.Text>
   </Form.Group>
 
-  <Form.Group className="mb-3" controlId="formBasicLastName">
+  <Form.Group className="mb-3" controlId="formLastName">
     <Form.Label>Last name</Form.Label>
     <Form.Control type="text" placeholder="Enter votre prenom" onChange={(e) =>setLastName(e.target.value)} />
     <Form.Text className="text-muted">
@@ -110,9 +115,17 @@ function Register() {
     </Form.Text>
   </Form.Group>
 
-  <Form.Group className="mb-3" controlId="formBasicLastName">
+  <Form.Group className="mb-3" controlId="formEmail">
     <Form.Label>your mail</Form.Label>
     <Form.Control type="email" placeholder="your mail" onChange={(e) =>setUserMail(e.target.value)} />
+    <Form.Text className="text-muted">
+     {errorMailMessage}
+    </Form.Text>
+  </Form.Group>
+  
+  <Form.Group className="mb-3" controlId="formVille">
+    <Form.Label>your city</Form.Label>
+    <Form.Control type="text" placeholder="your city" onChange={(e) =>setUserCity(e.target.value)} />
     <Form.Text className="text-muted">
      {errorMailMessage}
     </Form.Text>
@@ -123,11 +136,22 @@ function Register() {
     <Form.Control type="password" placeholder="Password"  onChange={(e) =>setPassword(e.target.value)} />
   </Form.Group>
 
+  <Form.Group className="mb-3" controlId="formPhone">
+    <Form.Label>phone number</Form.Label>
+    <Form.Control type="text" placeholder="phone number pls"  onChange={(e) =>setUserPhone(e.target.value)} />
+  </Form.Group>
+  
+  <Form.Group className="mb-3" controlId="formImage">
+    <Form.Label>profile photo</Form.Label>
+    <Form.Control type="file"   onChange={(e) =>setPassword(e.target.value)} />
+  </Form.Group>
+
+
   <Form.Group className="mb-3" controlId="formBasicCheckbox">
     <Form.Check type="checkbox" label="Check me out" />
   </Form.Group>
   <Button className='btn-send'  variant="primary" onClick={addUsers} >register</Button>
-  <Button className='btn-send'  variant="primary" onClick={getUsers} >affiche</Button>
+  {/* <Button className='btn-send'  variant="primary" onClick={getUsers} >affiche</Button> */}
   
 </Form>
 </Col>

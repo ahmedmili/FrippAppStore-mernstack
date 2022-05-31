@@ -14,10 +14,9 @@ import {atriclsInfo} from '../../artiCart/Articl.js'
 const Home = () => {
   var [loggedin,setLoggedIn] = useState(false)
   const sToken = ReactSession.get('token')
+  // console.log(sToken)
   let navigate = useNavigate();
-  // console.log(atriclsInfo.articl[0].path)
   
-
   // const Logout = () =>{
   //   ReactSession.remove('token')
   //   navigate('/login')

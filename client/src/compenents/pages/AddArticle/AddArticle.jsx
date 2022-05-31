@@ -40,7 +40,7 @@ const AddArticle = () => {
             <label htmlFor="artFile">upload photo</label>
             <input type="file" name='uploadedImg' />
 
-            <input type="submit"value={'upload'} />
+            <input type="submit" value={'upload'} />
         </form>
 
 

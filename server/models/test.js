@@ -8,40 +8,40 @@ const header = {
 const key = "$AhmedIsAwesome!";
 
 function manipul() {
-  this.get = function(res) {
-    connection.acquire(function(err,con) {
-      con.query('select * from 	userstable', function(err,result) {
-        con.release();
-        res.send(result);
-        console.log("Get successful");
-      });
-    });
-  };
-  this.getByID = function(id,res) {
-    connection.acquire(function(err,con) {
-      con.query('select * from 	userstable where id = ?', id, function(err,result) {
-        con.release();
-        res.send(result);
-        console.log("Get by ID successful");
-      });
-    });
-  };
+  // this.get = function(res) {
+  //   connection.acquire(function(err,con) {
+  //     con.query('select * from 	userstable', function(err,result) {
+  //       con.release();
+  //       res.send(result);
+  //       console.log("Get successful");
+  //     });
+  //   });
+  // };
+  // this.getByID = function(id,res) {
+  //   connection.acquire(function(err,con) {
+  //     con.query('select * from 	userstable where id = ?', id, function(err,result) {
+  //       con.release();
+  //       res.send(result);
+  //       console.log("Get by ID successful");
+  //     });
+  //   });
+  // };
 
-  this.getByName = function(Fname,res) {
-    connection.acquire(function(err,con) {
-      con.query('select * from 	userstable where LOWER(Fname) = ?', [Fname], function(err,result) {
+  // this.getByName = function(Fname,res) {
+  //   connection.acquire(function(err,con) {
+  //     con.query('select * from 	userstable where LOWER(Fname) = ?', [Fname], function(err,result) {
        
-               con.release();
-               if(result.length){ // error
-                return res.status(400).send({
-                    message : 'existe acc'})
-             }
-      });
-    });
-  };
+  //              con.release();
+  //              if(result.length){ // error
+  //               return res.status(400).send({
+  //                   message : 'existe acc'})
+  //            }
+  //     });
+  //   });
+  // };
   this.create = function(todo,res) {
     connection.acquire(function(err,con) {
-      con.query('insert into 	userstable set ?', todo, function(err,result) {
+      con.query('insert into users set ?', todo, function(err,result) {
         con.release();
         if (err) {
           console.log(err)
@@ -55,7 +55,7 @@ function manipul() {
   };
   this.update = function(todo,id,res) {
     connection.acquire(function(err,con) {
-      con.query('update userstable set Fname = ? where id = ?', [todo, id], function(err,result) {
+      con.query('update users set Fname = ? where id = ?', [todo, id], function(err,result) {
         con.release();
         if (err) {
           console.log(err)
@@ -88,8 +88,10 @@ function manipul() {
   this.login = function(data,res){
     let usermail = data.email
     let password = data.password
+    // console.log('login')
     connection.acquire(function(err,con) {
-      con.query('select * from 	userstable where LOWER(email) = ? And password = ?', [usermail,password], function(err,result) {
+      let sqlQuery = "select 'Id_user','first_name','last_name','adress','email','nb_article_solded' from users where LOWER(email) = ? And password = ?"
+      con.query(sqlQuery, [usermail,password], function(err,result) {
         con.release();
         if (err) {
           res.send({status:1, err: err});
