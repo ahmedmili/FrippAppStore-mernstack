@@ -1,8 +1,9 @@
 var todo = require('../models/test');
 var Articles = require('../models/Articles');
-
+var fileName = ''
   const multer  = require('multer')
 const path = require('path')
+
 const storage = multer.diskStorage({
   destination : (req,file,cb)=>{
     cb(null,"uploadedImgs");
@@ -10,7 +11,9 @@ const storage = multer.diskStorage({
   filename : (req,file,cb)=>{
     // console.log(file)
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
-    cb(null,Date.now() + path.extname(file.originalname))
+    fileName =Date.now() + path.extname(file.originalname)
+    cb(null,fileName)
+    
     // cb(null, file.fieldname + '-' + uniqueSuffix)
   },
 })
@@ -35,11 +38,12 @@ module.exports = {
       todo.getByName(req.params.Fname,res);
     });
     app.get('/',function(req,res) {
-   todo.verfifToken(req.headers.token,res)
       // console.log(req.headers.token)
-      
-
-
+   todo.verfifToken(req.headers.token,res)
+    });
+    app.get('/getArticles',function(req,res) {
+      // console.log(req.headers.token)
+   todo.getArticles(res)
     });
 
     app.put('/api/update/:id',function(req,res) {
@@ -59,7 +63,11 @@ module.exports = {
     });
 
     app.post('/api/addArticle',upload.single('uploadedImg'),function(req,res){
-      Articles.uploadSingle(req,res)
+      if (!req.file.originalname.match(/\.(jpg|JPG|jpeg|JPEG|png|PNG|gif|GIF)$/)) {
+        res.send({ msg:'Only image files (jpg, jpeg, png) are allowed!'})}else{
+             Articles.uploadSingle(req,fileName,res)
+        }
+   
     });
   }
 };

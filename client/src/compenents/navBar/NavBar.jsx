@@ -15,7 +15,7 @@ const NavBar = () => {
 <>
 <Navbar className='nav-bar' bg="info">
     <Container >
-    <Navbar.Brand href="#home" >Frippe online</Navbar.Brand>
+    <Navbar.Brand as={Link} to={'/'}>Frippe online</Navbar.Brand>
     <Nav className="me-auto">
       <Nav.Link className='nav-list' onClick={Logout}>logout</Nav.Link>
       <Nav.Link as={Link} to={'/addArticle'} className='nav-list'>add article</Nav.Link>

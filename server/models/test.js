@@ -17,6 +17,15 @@ function manipul() {
   //     });
   //   });
   // };
+  this.getArticles = function(res) {
+    connection.acquire(function(err,con) {
+      con.query('select * from 	article', function(err,result) {
+        con.release();
+        res.send(result);
+        console.log("Get successful");
+      });
+    });
+  };
   // this.getByID = function(id,res) {
   //   connection.acquire(function(err,con) {
   //     con.query('select * from 	userstable where id = ?', id, function(err,result) {
@@ -90,7 +99,7 @@ function manipul() {
     let password = data.password
     // console.log('login')
     connection.acquire(function(err,con) {
-      let sqlQuery = "select 'Id_user','first_name','last_name','adress','email','nb_article_solded' from users where LOWER(email) = ? And password = ?"
+      let sqlQuery = "select Id_user,first_name,last_name,adress,email,nb_article_solded from users where LOWER(email) = ? And password = ?"
       con.query(sqlQuery, [usermail,password], function(err,result) {
         con.release();
         if (err) {
@@ -98,7 +107,9 @@ function manipul() {
         } 
 
          if(result.length>0){
-          var sJWT = tokenFN.GenerateJWT(header,data,key);
+           console.log(result)
+          const sJWT = tokenFN.GenerateJWT(header,{result},key);
+          // const decToken = tokenFN.DecodeJWT(sJWT)
           res.send({result,status:2,token:sJWT})
           }else {  
             res.send({status:0, message:'wrong password/username'});

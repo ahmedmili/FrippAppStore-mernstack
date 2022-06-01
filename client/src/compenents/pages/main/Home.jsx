@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { ReactSession }  from 'react-client-session';
 import { useNavigate } from 'react-router-dom'
 import Axios from "axios";
@@ -12,6 +12,7 @@ import {atriclsInfo} from '../../artiCart/Articl.js'
 
 
 const Home = () => {
+  const [artsListe,setArtsListe] = useState([])
   var [loggedin,setLoggedIn] = useState(false)
   const sToken = ReactSession.get('token')
   // console.log(sToken)
@@ -31,6 +32,28 @@ const Home = () => {
       setLoggedIn(response.data.loggedin)
     })
   }
+//   useEffect(()=>{
+//     Axios.get("http://localhost:8000/getArticles",).then((response)=>{
+//        fetch('http://localhost:8000/getArticles')
+//        .then((res)=>{
+//         console.log(res)
+//         return res.json()
+//        }).then((result)=>{
+//         result.map (function(value) {
+//           console.log(value)    
+//     })
+//        })
+//     })
+//   }
+// ,[])
+// 
+  useEffect(()=>{
+    Axios.get("http://localhost:8000/getArticles",).then((response)=>{
+     setArtsListe(response.data)
+    })
+  }
+,[])
+  
 
   if(sToken){
     verifToken(sToken)
@@ -57,14 +80,14 @@ const Home = () => {
             
 
          { 
-         atriclsInfo.map (function(value) {
+         artsListe.map (function(value) {
               console.log(value.path)
               const serverBaseURI = 'http://localhost:8000'
           return( //uploadedImgs\\
-              <Articl className='articels' imagee={`${serverBaseURI}/uploadedImgs\\${value.path}`} 
-              prix={value.prix}
+              <Articl className='articels' imagee={`${serverBaseURI}/uploadedImgs\\${value.art_photo}`} 
+              prix={value.art_prix}
               err={'article image not found'}
-              ownerName ={value.owner_name}
+              // ownerName ={value.owner_name}
               />
           )
         })
